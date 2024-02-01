@@ -193,9 +193,72 @@ public class MainController {
   @ResponseBody
   public String axiosResponse2(UserDTO userDTO){
     // @ModelAttribute
-    // axoise - applcation/json
+    // axios - application/json
     return userDTO.getName() + " " + userDTO.getAge();
   } // 2. Axios - get - @ModelAttribute - 가능함
 
+// @requestbody 는 setter 함수를 실행하지 않고 필드 자체에 값을 넣어줌
 
+  @PostMapping("/axios/response3")
+  @ResponseBody
+  // axios post는 url에 데이터 x
+  // required=true 기 때문에 에러가 발생
+  public String axiosRes3(@RequestParam String name, @RequestParam String age){
+    return "이름: " + name + ", 나이: "+ age;
+  }
+
+  @PostMapping("/axios/response4")
+  @ResponseBody
+  public String axiosRes4(UserDTO userDTO){
+    return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+  }
+  // 값이 null로 나오는데
+  // axios로 보내면 url이 아니라 본문으로 데이터를 보내서
+  // @modelAttribute가 값을 볼 수없음
+
+  @PostMapping("/axios/response5")
+  @ResponseBody
+  public String axiosRes5(@RequestBody UserDTO userDTO){
+    return "이름:" + userDTO.getName() + ", 나이: "+ userDTO.getAge();
+  }
+  // axios + post > @RequestBody o
+
+  // ========== VO 이용 with. axios ==========
+  @GetMapping("/axios/vo/response1")
+  @ResponseBody
+  public String axiosVoRes1(@RequestParam String name, @RequestParam String age) {
+    return "이름: " + name + ", 나이: " + age;
+  }
+ //o
+  @GetMapping("/axios/vo/response2")
+  @ResponseBody
+  public String axiosVoRes2(UserVO userVO) {
+    return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+  }
+  // o (null)
+
+  @PostMapping("/axios/vo/response3")
+  @ResponseBody
+  public String axiosVoRes3(@RequestParam String name, @RequestParam String age) {
+    return "이름: " + name + ", 나이: " + age;
+  }
+// x
+  @PostMapping("/axios/vo/response4")
+  @ResponseBody
+  public String axiosVoRes4(UserVO userVO){
+    return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+  }
+
+  @PostMapping("/axios/vo/response5")
+  @ResponseBody
+  public String axiosVoRes5(@RequestBody UserVO userVO){
+    return "이름: "+ userVO.getName() + ", 나이: "+ userVO.getAge();
+  }
+
+  @PostMapping("/axios/vo/response6")
+  @ResponseBody
+  public String postResponse5(@RequestBody ResiterVO resiterVO) {
+    return resiterVO.getName();
+  }
 }
+
