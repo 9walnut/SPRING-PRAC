@@ -1,8 +1,8 @@
-package com.sesac.sesacspring.controller;
+package com.sesac.sesacspring.api.controller;
 
 
-import com.sesac.sesacspring.dto.*;
-import com.sesac.sesacspring.vo.*;
+import com.sesac.sesacspring.api.dto.*;
+import com.sesac.sesacspring.api.vo.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
