@@ -30,7 +30,8 @@
         function editBoard(id) {
             var form = document.getElementById('form_board');
             var data = {
-                id,
+
+                id : id,
                 title: form.title.value,
                 content: form.content.value,
                 writer: form.writer.value,
@@ -72,9 +73,9 @@
         <th>삭제</th>
     </tr>
     <!--    타임리프 문법 이용해서 게시판 글 보여주기 -->
-    <tr th:each="notice:${noticeList}">
+    <tr th:each="notice:${list}">
         <td>
-            <p th:text="${notice.getId()}"></p>
+            <p th:text="${notice.getNo()}"></p>
         </td>
         <td>
             <p th:text="${notice.getId()}"></p>

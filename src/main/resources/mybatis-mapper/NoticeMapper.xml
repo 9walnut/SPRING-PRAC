@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--xml 파일 작성법-->
+<mapper namespace="com.sesac.sesacspring.mapper.NoticeMapper">
+    <select id="getNotice" resultType="com.sesac.sesacspring.domain.Notice">
+        SELECT * FROM notice
+    </select>
+    <insert id="postNoticeInsert" parameterType="com.sesac.sesacspring.domain.Notice">
+        insert into notice(title, content, writer) values(#{title}, #{content}, #{writer})
+    </insert>
+    <update id="patchNotice" parameterType="com.sesac.sesacspring.domain.Notice">
+        update notice set title=#{title}, content=#{content}, writer=#{writer} where id=#{id}
+    </update>
+    <delete id="deleteNotice" parameterType="Integer">
+        DELETE FROM notice WHERE id=#{id}
+    </delete>
+    <select id="searchNotice" parameterType="String" resultType="com.sesac.sesacspring.domain.Notice">
+<!--        동적 쿼리 생성-->
+<!--        조건 1. 검색어가 없으면 전체 검색 (SELECT * FROM notice -->
+<!--        조건 2. 검색어가 있으면 검색어와 제목이 일치하는 것 -->
+<!--        SELECT * FROM notice WHERE title=#{word} -->
+        SELECT * FROM notice
+        <where>
+            <if test="word != ''">
+                AND title=#{word}
+            </if>
+        </where>
+    </select>
+</mapper>
