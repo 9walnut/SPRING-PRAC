@@ -24,7 +24,6 @@ public class Student {
   private String nickname;
 
   // enum
-  @Column
   @Enumerated(EnumType.STRING)
   private LoginType type;
 

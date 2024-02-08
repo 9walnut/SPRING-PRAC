@@ -6,6 +6,7 @@ import com.sesac.sesacspring.jpa.repository.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
+import java.time.*;
 import java.util.*;
 
 @Service
@@ -19,6 +20,7 @@ public class BoardService {
 
     for (Board board : result){
       BoardDTO boardDTO = BoardDTO.builder()
+              .id(board.getId())
               .title(board.getTitle())
               .content(board.getContent())
               .writer(board.getWriter())
@@ -40,18 +42,21 @@ public class BoardService {
     return true;
   }
   public void updateBoard(BoardDTO boardDTO) {
-    Optional<Board> optionalBoard = boardRepository.findById(boardDTO.getId());
+    Board board = boardRepository.findById(boardDTO.getId())
+            .orElseThrow(()->new NoSuchElementException("id is wrong"));
 
-    if (optionalBoard.isPresent()) {
-      Board board = optionalBoard.get();
-      board.update(boardDTO);
-      boardRepository.save(board);
-    } else {
-      throw new NoSuchElementException("찾고자 하는 게시글이 없습니다.");
-    }
+    Board updateBoard =
+            Board.builder().id(board.getId()).title(boardDTO.getTitle()).content(boardDTO.getContent()).writer(boardDTO.getWriter())
+                    .registered(LocalDateTime.now())
+                    .build();
+    boardRepository.save(updateBoard);
   }
 
-  public void deleteBoard(int id){boardRepository.deleteById(id);}
+  public void deleteBoard(int id){
+    Board board = boardRepository.findById(id)
+            .orElseThrow(()->new NoSuchElementException("id is wrong"));
+    boardRepository.delete(board)
+    ;}
 
   public int searchBoard(String word){
     List<Board> result = boardRepository.findByTitleContaining(word);

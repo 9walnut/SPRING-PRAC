@@ -1,6 +1,5 @@
 package com.sesac.sesacspring.jpa.entity;
 
-import com.sesac.sesacspring.jpa.dto.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,9 +37,4 @@ public class Board {
     this.registered = LocalDateTime.now();  // 업데이트되기 전에 현재 시간을 설정
   }
 
-  public void update(BoardDTO boardDTO) {
-    this.title = boardDTO.getTitle();
-    this.content = boardDTO.getContent();
-    this.writer = boardDTO.getWriter();
-  }
 }
